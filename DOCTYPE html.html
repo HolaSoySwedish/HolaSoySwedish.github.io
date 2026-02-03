@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Valentine</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0;
+    }
+
+    .container {
+      text-align: center;
+      background: white;
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    }
+
+    h1 {
+      margin-bottom: 30px;
+    }
+
+    button {
+      font-size: 18px;
+      padding: 12px 24px;
+      margin: 10px;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    #yesBtn {
+      background-color: #ff4d6d;
+      color: white;
+    }
+
+    #noBtn {
+      background-color: #adb5bd;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container" id="container">
+  <h1>Will you be my Valentine? ❤️</h1>
+  <button id="yesBtn">Ja</button>
+  <button id="noBtn">Nej</button>
+</div>
+
+<script>
+  const yesBtn = document.getElementById("yesBtn");
+  const noBtn = document.getElementById("noBtn");
+  const container = document.getElementById("container");
+
+  let noClicks = 0;
+
+  const noTexts = [
+    "Är du säker?",
+    "Tänk igen 😢",
+    "Snälla då",
+    "Det här känns fel...",
+    "Du vill ju egentligen",
+    "Sista chansen!",
+    "Okej nu är det löjligt"
+  ];
+
+  noBtn.addEventListener("click", () => {
+    noClicks++;
+
+    // Gör JA större
+    const yesSize = 18 + noClicks * 8;
+    yesBtn.style.fontSize = yesSize + "px";
+    yesBtn.style.padding = (12 + noClicks * 4) + "px " + (24 + noClicks * 8) + "px";
+
+    // Gör NEJ mindre
+    const noSize = Math.max(8, 18 - noClicks * 2);
+    noBtn.style.fontSize = noSize + "px";
+    noBtn.style.padding = Math.max(4, 12 - noClicks) + "px " + Math.max(8, 24 - noClicks * 2) + "px";
+
+    // Byt text på NEJ
+    const textIndex = Math.min(noClicks - 1, noTexts.length - 1);
+    noBtn.textContent = noTexts[textIndex];
+
+    // Ta bort NEJ helt efter tillräckligt många klick
+    if (noClicks >= 8) {
+      noBtn.remove();
+    }
+  });
+
+  yesBtn.addEventListener("click", () => {
+    container.innerHTML = `
+      <h1>YAAAAY!!! 🎉💖</h1>
+      <p style="font-size: 22px;">Best Valentine ever 💕</p>
+      <p style="font-size: 40px;">🥰🌹🍫</p>
+    `;
+  });
+</script>
+
+</body>
+</html>
